@@ -33,10 +33,26 @@ function mergeTables(tab1, tab2) {
   }
   return tab;
 }
-
+/**
+ * Renvoie le tableau dont les éléments sont triés dans l'ordre croissant
+ * @param {Number[]} tab 
+ */
+function sortTable(tab) {
+  for(let i = 0; i < tab.length-1; i++) {
+    for(let j = 0; j < tab.length - i - 1; j++) {
+      if(tab[j] > tab[j+1]) { // swap
+        let tmp = tab[j];
+        tab[j] = tab[j+1];
+        tab[j+1] = tmp;
+      }
+    }
+  }
+  return tab;
+}
 
 let tab1 = createTab(20);
 let tab2 = createTab(20);
 let tab3 = mergeTables(tab1, tab2);
+tab3 = sortTable(tab3);
 
 console.table(tab3);
