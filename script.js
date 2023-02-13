@@ -1,27 +1,29 @@
-/**
- * Crée et renvoie un tableau de longueur n
- * @param {Number} n le nombre d'éléments du tableau
- */
 
-function createTab(n) {
-  let tab = Array(n);
-  for(let i = 0; i < n; i++) {
-    tab[i] = Math.floor(100 * Math.random());
+/**
+ * 
+ * @param {Number} n La longueur du tableau
+ * @returns Le tableau de longueur n dont les éléments sont triés dans l'ordre croissant
+ */
+function createTabRec(n) {
+  if(n === 0) {
+    return [];
+  } else {
+    return mergeTables(createTabRec(n-1), [Math.floor(100 * Math.random())]);
   }
-  return tab;
 }
 
+
 /**
- * Crée et renvoie la fusion de deux tableaux triés
- * @param {Number[]} tab1 le premier tableau trié
- * @param {Number[]} tab2 le second tableau trié
+ * Crée et renvoie la fusion de deux tableaux si les deux tableaux sont triés la fusion aussi
+ * @param {Number[]} tab1 le premier tableau
+ * @param {Number[]} tab2 le second tableau
+ * @returns La fusion des deux tableaux
  */
 function mergeTables(tab1, tab2) {
-  let i1 = 0;
-  let i2 = 0;
   let n1 = tab1.length;
   let n2 = tab2.length;
   let tab = Array(n1 + n2);
+
   for(let i = 0; i < n1; i++) {
     tab[i] = tab1[i];
   }
@@ -39,8 +41,35 @@ function mergeTables(tab1, tab2) {
   }
   return tab;
 }
+
+
+
+let tab1 = createTabRec(20);
+let tab2 = createTabRec(20);
+//tab1 = sortTable(tab1);
+//tab2 = sortTable(tab2);
+
+let tab3 = mergeTables(tab1, tab2);
+
+console.table(tab3);
+console.log(`Nombre médian : ${tab3[(tab3.length/2) - 1]}`);
+
 /**
- * Renvoie le tableau dont les éléments sont triés dans l'ordre croissant
+ * Crée et renvoie un tableau de longueur n
+ * @param {Number} n le nombre d'éléments du tableau
+ */
+
+function createTab(n) {
+  let tab = Array(n);
+  for(let i = 0; i < n; i++) {
+    tab[i] = Math.floor(100 * Math.random());
+  }
+  return tab;
+}
+
+
+/**
+ * Renvoie un tableau dont les éléments sont triés dans l'ordre croissant
  * @param {Number[]} tab 
  */
 function sortTable(tab) {
@@ -55,14 +84,3 @@ function sortTable(tab) {
   }
   return tab;
 }
-
-let tab1 = createTab(20);
-let tab2 = createTab(20);
-tab1 = sortTable(tab1);
-tab2 = sortTable(tab2);
-let tab3 = mergeTables(tab1, tab2);
-//tab3 = sortTable(tab3);
-
-console.table(tab3);
-
-console.log(tab3[tab3.length/2]); // Ou bien console.log(tab3[(tab3.length/2) - 1]);
